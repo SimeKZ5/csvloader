@@ -1,13 +1,23 @@
 import { useState } from "react";
-import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import SettingsIcon from "@mui/icons-material/Settings";
+import CreateLicenceDialog from "./dialog/CreateLicenceDialog";
 
 const CSVLoader = () => {
   const [file, setFile] = useState<File | null>(null);
   const [dragging, setDragging] = useState<boolean>(false);
+  const [createLicenceDialogOpen, setCreateLicenceDialogOpen] =
+    useState<boolean>(false);
 
-  // File selection
+  const handleOpenDialog = () => {
+    setCreateLicenceDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setCreateLicenceDialogOpen(false);
+  };
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
@@ -16,7 +26,6 @@ const CSVLoader = () => {
     }
   };
 
-  // DRags
   const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setDragging(true);
@@ -86,7 +95,13 @@ const CSVLoader = () => {
               onChange={handleFileChange}
             />
           </Button>
-
+          <Button
+            startIcon={<SettingsIcon />}
+            onChange={handleOpenDialog}
+            variant="contained"
+          >
+            Admin
+          </Button>
           <Button startIcon={<SettingsIcon />} variant="contained">
             Settings
           </Button>
@@ -116,11 +131,14 @@ const CSVLoader = () => {
               : "Drag & Drop files here or click to upload"}
           </Typography>
         </Box>
-        <TextField type="number" label="Odaberi startni red" sx={{ mt: 2 }} />
         <Button sx={{ mt: 2 }} variant="contained">
           Export
         </Button>
       </Box>
+      <CreateLicenceDialog
+        open={createLicenceDialogOpen}
+        onClose={handleCloseDialog}
+      />
     </Container>
   );
 };
