@@ -97,7 +97,7 @@ const CSVLoader = () => {
           </Button>
           <Button
             startIcon={<SettingsIcon />}
-            onChange={handleOpenDialog}
+            onClick={handleOpenDialog}
             variant="contained"
           >
             Admin
