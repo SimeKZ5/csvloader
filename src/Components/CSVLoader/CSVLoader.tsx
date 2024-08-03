@@ -2,21 +2,12 @@ import { useState } from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import SettingsIcon from "@mui/icons-material/Settings";
-import CreateLicenceDialog from "./dialog/CreateLicenceDialog";
+import useGetLicence from "./hook/useGetLicence";
 
 const CSVLoader = () => {
   const [file, setFile] = useState<File | null>(null);
   const [dragging, setDragging] = useState<boolean>(false);
-  const [createLicenceDialogOpen, setCreateLicenceDialogOpen] =
-    useState<boolean>(false);
-
-  const handleOpenDialog = () => {
-    setCreateLicenceDialogOpen(true);
-  };
-
-  const handleCloseDialog = () => {
-    setCreateLicenceDialogOpen(false);
-  };
+  const { licenceData } = useGetLicence();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -25,7 +16,7 @@ const CSVLoader = () => {
       console.log("File selected:", selectedFile.name);
     }
   };
-
+  console.log(licenceData);
   const handleDragEnter = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setDragging(true);
@@ -95,13 +86,7 @@ const CSVLoader = () => {
               onChange={handleFileChange}
             />
           </Button>
-          <Button
-            startIcon={<SettingsIcon />}
-            onClick={handleOpenDialog}
-            variant="contained"
-          >
-            Admin
-          </Button>
+
           <Button startIcon={<SettingsIcon />} variant="contained">
             Settings
           </Button>
@@ -135,10 +120,6 @@ const CSVLoader = () => {
           Export
         </Button>
       </Box>
-      <CreateLicenceDialog
-        open={createLicenceDialogOpen}
-        onClose={handleCloseDialog}
-      />
     </Container>
   );
 };

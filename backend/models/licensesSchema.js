@@ -12,7 +12,7 @@ const licensesSchema = new mongoose.Schema(
     },
     machineId: {
       type: String,
-      required: true,
+      required: false,
     },
     date: {
       type: Date,
