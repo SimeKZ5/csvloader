@@ -83,7 +83,6 @@ const LicenseCheck: React.FC = () => {
         authResponse.ok &&
         authData.message === "License successfully authorized"
       ) {
-        // Step 2: Check the device registration if authorization is successful
         const checkResponse = await fetch(
           `http://localhost:5000/api/licence/check-device`,
           {
