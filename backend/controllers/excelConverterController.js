@@ -168,10 +168,10 @@ function processExcelFile(filePath, startRow = 12) {
     const length = rowData[6] || 1;
     const width = rowData[7] || 1;
     const pc = rowData[8] || 1;
-    const length_1 = rowData[9] || 1;
+    /*     const length_1 = rowData[9] || 1;
     const length_2 = rowData[10] || 1;
     const width_1 = rowData[11] || 1;
-    const width_2 = rowData[12] || 1;
+    const width_2 = rowData[12] || 1; */
     const l_mat_1 = rowData[13] || "";
     const l_mat_2 = rowData[14] || "";
     const w_mat_1 = rowData[15] || "";
@@ -181,10 +181,10 @@ function processExcelFile(filePath, startRow = 12) {
     const note_1 = rowData[19] || "";
     const note_2 = rowData[20] || "";
 
-    const str_0 = l_mat_1 === "" ? false : true;
+    /*     const str_0 = l_mat_1 === "" ? false : true;
     const str_1 = l_mat_2 === "" ? false : true;
     const str_2 = w_mat_1 === "" ? false : true;
-    const str_3 = w_mat_2 === "" ? false : true;
+    const str_3 = w_mat_2 === "" ? false : true; */
 
     // Add a new ELEMENT to the XML for this row
     const element = xmlRoot.ele("ELEMENT", {

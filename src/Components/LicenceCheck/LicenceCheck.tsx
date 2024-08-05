@@ -41,10 +41,8 @@ const LicenseCheck: React.FC = () => {
 
         if (response.ok) {
           if (data.registered) {
-            // If the device is registered, redirect to the main application
             navigate("/");
           } else {
-            // If not registered, set registered to false
             setRegistered(false);
           }
         } else {
