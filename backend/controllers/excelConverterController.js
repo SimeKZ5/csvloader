@@ -163,23 +163,33 @@ function processExcelFile(filePath, startRow = 12) {
     // Extract values from the row using specified variables
     const position = rowData[1] || "DefaultName";
     const board_name = rowData[2] || "";
+    // Skipping the empty column at index 3
     const material = rowData[4] || "";
     const th = rowData[5] || 1;
     const length = rowData[6] || 1;
     const width = rowData[7] || 1;
     const pc = rowData[8] || 1;
-    /*     const length_1 = rowData[9] || 1;
+    const length_1 = rowData[9] || 1;
     const length_2 = rowData[10] || 1;
     const width_1 = rowData[11] || 1;
-    const width_2 = rowData[12] || 1; */
+    const width_2 = rowData[12] || 1;
     const l_mat_1 = rowData[13] || "";
     const l_mat_2 = rowData[14] || "";
     const w_mat_1 = rowData[15] || "";
     const w_mat_2 = rowData[16] || "";
-    const cnc_1 = rowData[17] || "";
-    const cnc_2 = rowData[18] || "";
-    const note_1 = rowData[19] || "";
-    const note_2 = rowData[20] || "";
+    const cnc_1 = rowData[17] || ""; // Correct index for CNC 1
+    const cnc_2 = rowData[18] || ""; // Correct index for CNC 2
+    const note_1 = rowData[19] || ""; // Correct index for NOTE 1
+    const note_2 = rowData[20] || ""; // Correct index for NOTE 2
+
+    let noteBoth = "";
+    if (note_1 && note_2) {
+      noteBoth = `&quot;${note_1}&quot;,&quot;${note_2}&quot;`;
+    } else if (note_1) {
+      noteBoth = `&quot;${note_1}&quot;`;
+    } else if (note_2) {
+      noteBoth = `&quot;${note_2}&quot;`;
+    }
 
     /*     const str_0 = l_mat_1 === "" ? false : true;
     const str_1 = l_mat_2 === "" ? false : true;
@@ -219,8 +229,8 @@ function processExcelFile(filePath, startRow = 12) {
       EKOL: pc,
       EXKUT: "0",
       EZKUT: "0",
-      EOPIS: note_1,
-      ENAPOMENA: note_2,
+      EOPIS: "",
+      ENAPOMENA: "",
       EARTIKL: "false",
       EMINV: "0",
       EMINS: "0",
@@ -344,7 +354,7 @@ function processExcelFile(filePath, startRow = 12) {
       ARTIKL: "false",
       DSIFRA: "%NE%",
       PROGRAM1: cnc_2,
-      PRIMJEDBALIST: "",
+      PRIMJEDBALIST: noteBoth,
       PRDEBLJINA: "0",
       INHFR: "false",
       RUNKOLICINA: "0",
