@@ -3,11 +3,13 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import SettingsIcon from "@mui/icons-material/Settings";
 import useGetLicence from "./hook/useGetLicence";
+import useUploadExcelFile from "./hook/useUploadExcel";
 
 const CSVLoader = () => {
   const [file, setFile] = useState<File | null>(null);
   const [dragging, setDragging] = useState<boolean>(false);
   const { licenceData } = useGetLicence();
+  const { exportToS3D } = useUploadExcelFile();
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
@@ -40,6 +42,14 @@ const CSVLoader = () => {
       setFile(droppedFile);
       console.log("File dropped:", droppedFile.name);
     }
+  };
+
+  const handleExportS3D = () => {
+    if (!file) {
+      alert("Please upload a file first.");
+      return;
+    }
+    exportToS3D({ file, startRow: 12 });
   };
 
   return (
@@ -116,7 +126,7 @@ const CSVLoader = () => {
               : "Drag & Drop files here or click to upload"}
           </Typography>
         </Box>
-        <Button sx={{ mt: 2 }} variant="contained">
+        <Button sx={{ mt: 2 }} variant="contained" onClick={handleExportS3D}>
           Export
         </Button>
       </Box>

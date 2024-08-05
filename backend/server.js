@@ -17,6 +17,7 @@ app.use(express.json());
 
 app.use("/api/licence", require("./routes/licenseRoutes"));
 app.use("/api/korisnici", require("./routes/userRoutes"));
+app.use("/api/excel", require("./routes/excelFormatRoute"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
