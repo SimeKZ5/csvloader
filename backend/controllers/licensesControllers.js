@@ -100,19 +100,30 @@ const authorizeLicense = async (req, res) => {
 const checkDeviceRegistration = async (req, res) => {
   const { deviceId } = req.body;
 
+  console.log("Received request to check device registration");
+  console.log("Device ID:", deviceId);
+
+  if (!deviceId) {
+    return res.status(400).json({ message: "Device ID is required" });
+  }
+
   try {
     const license = await License.findOne({ machineId: deviceId });
 
     if (!license) {
+      console.log("No license found for the given Device ID");
       return res.status(200).json({ registered: false });
     }
 
     if (license.licenseUsed && license.machineId === deviceId) {
+      console.log("Device is registered");
       return res.status(200).json({ registered: true });
     }
 
+    console.log("Device is not registered");
     return res.status(200).json({ registered: false });
   } catch (err) {
+    console.error("Error checking device registration:", err);
     res.status(500).json({ message: "Server Error", error: err.message });
   }
 };
